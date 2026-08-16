@@ -30,7 +30,7 @@ grad-cam>=1.5
 # --- API 服务 ---
 fastapi>=0.110
 uvicorn>=0.29
-python-multipart>=0.0.9
+python-multipart>=0.0.32
 
 # --- 数据库 ---
 # sqlite3 为 Python 内置，无需额外安装
