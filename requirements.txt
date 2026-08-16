@@ -15,7 +15,7 @@ pandas>=2.0
 
 # --- 可视化 ---
 matplotlib>=3.7
-seaborn>=0.12
+seaborn>=0.13.2
 
 # --- 机器学习工具 ---
 scikit-learn>=1.3
