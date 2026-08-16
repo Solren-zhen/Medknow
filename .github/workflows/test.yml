@@ -39,10 +39,11 @@ jobs:
       - name: Install package and dev dependencies
         run: |
           pip install -e ".[dev]"
+          pip install "ruff==0.16.3"
 
       - name: Lint with ruff
         run: |
-          ruff check src tests scripts models utils api hf_space app.py config.py demo_app.py experiments_multicenter
+          ruff check src tests scripts models utils api hf_space app.py config.py demo_app.py experiments_multicenter --config pyproject.toml
 
       - name: Test with pytest
         run: |
