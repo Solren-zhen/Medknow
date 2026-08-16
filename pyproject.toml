@@ -40,6 +40,8 @@ where = ["src"]
 testpaths = ["tests"]
 
 [tool.ruff.lint]
-# E501: line length (research code); E402: imports after sys.path setup
-ignore = ["E501", "E402"]
+# E501: line length (research code); E402: imports after sys.path setup;
+# EXE001: shebang without executable bit — dev happens on Windows (no exec-bit
+# model); scripts are invoked via "python xxx.py", so the shebang is documentation only.
+ignore = ["E501", "E402", "EXE001"]
 
