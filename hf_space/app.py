@@ -15,6 +15,7 @@ Local run:
 """
 
 import os
+import sys
 from pathlib import Path
 
 import gradio as gr
@@ -319,4 +320,6 @@ def build_demo():
 
 
 if __name__ == "__main__":
-    build_demo().queue().launch()
+    # --share exposes a temporary public gradio.live link (for quick demos)
+    share = "--share" in sys.argv
+    build_demo().queue().launch(share=share)

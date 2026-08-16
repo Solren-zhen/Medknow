@@ -1,0 +1,8 @@
+# MedKnow Streamlit demo (Streamlit Community Cloud)
+streamlit>=1.40
+torch>=2.0
+torchvision>=0.15
+numpy>=1.24
+pillow>=10.0
+grad-cam>=1.5
+requests>=2.31
