@@ -32,7 +32,9 @@ jobs:
       - name: Install CPU torch first (avoids the 2.5 GB CUDA wheel)
         run: |
           pip install --upgrade pip
-          pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
+          # Pin the exact +cpu build so pip takes it from the PyTorch index;
+          # --extra-index-url keeps torch's deps (sympy, etc.) resolvable from PyPI.
+          pip install "torch==2.13.0+cpu" torchvision --index-url https://download.pytorch.org/whl/cpu --extra-index-url https://pypi.org/simple
 
       - name: Install package and dev dependencies
         run: |
