@@ -45,7 +45,7 @@ pyyaml>=6.0
 kagglehub>=0.2
 
 # --- 训练监控 ---
-tensorboard>=2.14
+tensorboard>=2.21.0
 
 # --- 进度条 ---
 tqdm>=4.66
