@@ -1,0 +1,51 @@
+name: Test & Lint
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.11"]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Cache pip packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('pyproject.toml') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      - name: Install package and dev dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -e ".[dev]"
+
+      - name: Lint with ruff
+        run: |
+          ruff check src tests scripts models utils api hf_space app.py config.py demo_app.py experiments_multicenter
+
+      - name: Test with pytest
+        run: |
+          pytest tests/ -v --tb=short
+
+      - name: Verify package imports
+        run: |
+          python -c "from medknow.config import load_config; print('config OK')"
+          python -c "from medknow.models.factory import create_resnet18; print('models OK')"
+          python -c "from medknow.uncertainty.base import estimate_uncertainty; print('uncertainty OK')"
+          python -c "from medknow.referral.curves import referral_curves; print('referral OK')"
+          python -c "from medknow.visualization.figures import fig_roc; print('visualization OK')"

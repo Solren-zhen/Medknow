@@ -1,0 +1,33 @@
+cff-version: 1.2.0
+message: "If you use this repository or its trained models in your work, please cite it as follows."
+title: "MedKnow: Teaching Medical AI When Not to Know"
+type: software
+abstract: >-
+  Open-source benchmark for uncertainty-aware referral and selective prediction
+  in chest X-ray classification. ResNet-18 trained on Kermany chest X-rays with
+  patient-level splitting; MC Dropout, MSP, and entropy uncertainty estimation;
+  referral/selective-prediction analysis with random controls; temperature
+  scaling; and external validation on RSNA and NIH ChestXray-14 showing that
+  uncertainty-guided referral works in-domain but fails under domain shift.
+authors:
+  - name: "<Corresponding author name>"
+  - name: "<Additional author>"
+date-released: "2026-08-14"
+keywords:
+  - medical-ai
+  - chest radiograph
+  - uncertainty quantification
+  - selective prediction
+  - referral
+  - calibration
+  - external validation
+  - domain shift
+license: MIT
+repository-code: "https://github.com/<your-username>/medknow"
+# After publication, add:
+# preferred-citation:
+#   type: article
+#   authors: "<Authors>"
+#   title: "Uncertainty-guided referral for pneumonia detection on chest radiographs"
+#   journal: "<journal>"
+#   year: 2026

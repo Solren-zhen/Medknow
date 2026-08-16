@@ -1,0 +1,41 @@
+# 数据（太大，不上传）
+data/*
+!data/README.md
+*.zip
+
+# 模型与输出
+outputs/
+*.pth
+*.db
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# 环境
+.env
+
+# 缓存
+.pytest_cache/
+.mypy_cache/
+.DS_Store
+
+# 自审 QC 产物（paper/output/doc/ 保留，qc/ 不入库）
+qc/
+
+# 日志
+*.log
+
+# 个人文献笔记（不发布）
+research/literature/notes/
+
+# Python packaging
+*.egg-info/
+build/
+dist/
+
+# 预测缓存（可再生成）
+results/metrics/predictions/
+paper/notes/

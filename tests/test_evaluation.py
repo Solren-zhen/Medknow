@@ -1,0 +1,46 @@
+"""Tests for unified evaluation metrics and subgroup analysis."""
+
+import sys
+from pathlib import Path
+
+import numpy as np
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
+
+from medknow.evaluation.metrics import compute_metrics
+from medknow.evaluation.subgroups import subgroup_table
+
+
+def test_compute_metrics_perfect_separation():
+    labels = np.array([0, 0, 1, 1])
+    p_pos = np.array([0.1, 0.2, 0.9, 0.8])
+    m = compute_metrics(labels, p_pos)
+    assert m["auc"] == 1.0
+    assert m["accuracy"] == 1.0
+    assert m["sensitivity"] == 1.0
+    assert m["specificity"] == 1.0
+    assert m["confusion"] == {"tp": 2, "fp": 0, "tn": 2, "fn": 0}
+
+
+def test_compute_metrics_known_confusion():
+    labels = np.array([1, 1, 0, 0])
+    p_pos = np.array([0.9, 0.4, 0.6, 0.1])
+    m = compute_metrics(labels, p_pos)
+    assert m["confusion"] == {"tp": 1, "fp": 1, "tn": 1, "fn": 1}
+    assert m["accuracy"] == 0.5
+
+
+def test_subgroup_table_counts_and_fp_shares():
+    labels = np.array([1, 0, 0, 0, 1, 0])
+    p_pos = np.array([0.9, 0.8, 0.2, 0.1, 0.7, 0.6])
+    subgroups = ["Lung Opacity", "No LO", "Normal", "Normal", "Lung Opacity", "No LO"]
+    table = subgroup_table(
+        labels, p_pos, subgroups,
+        names=["Lung Opacity", "No LO", "Normal"],
+    )
+    assert table["Lung Opacity"]["n"] == 2
+    assert table["Normal"]["n"] == 2
+    # FPs: No LO index1 (0.8>0.5, label0), Normal index3 (0.1 no), No LO index5 (0.6, label0)
+    fp_total = sum(v["fp_contribution"] for v in table.values())
+    assert fp_total == 2
+    assert abs(sum(v["fp_share"] for v in table.values()) - 1.0) < 1e-12

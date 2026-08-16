@@ -1,0 +1,59 @@
+name: 🐛 Bug report
+description: Report a bug or an unexpected result
+title: "[Bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting! Before opening, please check that this is not a known
+        limitation (README `15) or a protocol difference (configs/ evaluation.protocols).
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: The unexpected behavior, error, or number discrepancy.
+      placeholder: "Running X gave Y instead of Z..."
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      description: Exact commands, config files, and data used.
+      placeholder: |
+        pip install -e ".[dev]"
+        python scripts/medknow_evaluate.py --weights checkpoints/seed_42.pth
+        ...
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected vs actual
+      description: What did you expect, and what did you get? Include exact numbers.
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version / commit
+      description: Output of `git rev-parse HEAD` or the release tag.
+    validations:
+      required: true
+  - type: textarea
+    id: env
+    attributes:
+      label: Environment
+      description: Python, PyTorch, OS versions.
+      placeholder: "Python 3.11.9, PyTorch 2.5.1, Windows 11"
+    validations:
+      required: false
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs / traceback
+      description: Paste the full error output.
+      render: shell
+    validations:
+      required: false

@@ -1,0 +1,49 @@
+# Baseline training/evaluation config — mirrors the manuscript's primary model.
+#
+# ResNet-18, ImageNet-pretrained, frozen backbone with layer4 + head fine-tuned,
+# patient-level split (70/15/15, seed 42), three training seeds (42, 2024, 2026).
+
+model:
+  name: resnet18
+  num_classes: 2
+  pretrained: true
+  freeze_backbone: true
+  unfreeze_layers: [layer4]
+  dropout_rate: 0.3
+
+training:
+  seed: 42
+  epochs: 25
+  learning_rate: 1.0e-4
+  weight_decay: 1.0e-5
+  batch_size: 16
+  use_amp: true
+  early_stopping:
+    enabled: true
+    patience: 5
+    monitor: val_loss
+    min_delta: 0.001
+  lr_scheduler:
+    enabled: true
+    type: reduce_on_plateau
+    factor: 0.5
+    patience: 3
+    min_lr: 1.0e-6
+  augmentation:
+    random_rotation_deg: 10
+    brightness: 0.2
+    contrast: 0.1
+    affine_translation_frac: 0.05
+
+data:
+  image_size: 224
+  batch_size: 16
+  num_workers: 2
+  internal:
+    name: kermany
+    root: data/chest_xray
+    split:
+      train: 0.70
+      val: 0.15
+      test: 0.15
+    seed: 42

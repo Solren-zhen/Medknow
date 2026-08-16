@@ -1,0 +1,11 @@
+torch>=2.1
+torchvision>=0.16
+pandas
+numpy
+scikit-learn
+scipy
+matplotlib
+pillow
+PyYAML
+# 仅 RSNA DICOM 转换需要
+pydicom>=2.3

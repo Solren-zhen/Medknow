@@ -1,0 +1,15 @@
+# Calibration config — temperature scaling fit on the internal validation set,
+# then applied to the internal test set and external cohorts.
+#
+# Manuscript values: internal raw ECE 0.034 (Brier 0.032); internal fitted
+# T = 1.67; externally the same T leaves ECE ~0.360 vs raw 0.369 — i.e.,
+# post-hoc calibration learned in-domain does not solve cross-domain
+# overconfidence. Calibration is NOT a domain-adaptation method.
+
+calibration:
+  ece_bins: 15
+  temperature_path: results/metrics/temperature.txt
+
+evaluation:
+  bootstrap_iters: 2000
+  bootstrap_seed: 42

@@ -1,0 +1,46 @@
+"""Tests for the unified uncertainty estimation interface."""
+
+import sys
+from pathlib import Path
+
+import numpy as np
+import torch
+from torch.utils.data import DataLoader, TensorDataset
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
+
+from medknow.models.factory import create_resnet18
+from medknow.uncertainty.base import estimate_uncertainty
+
+
+def _make_loader(n=8):
+    xs = torch.randn(n, 3, 64, 64)
+    labels = torch.tensor([0, 1] * (n // 2))
+    return DataLoader(TensorDataset(xs, labels), batch_size=4)
+
+
+def test_all_methods_return_same_structure():
+    model = create_resnet18(pretrained=False)
+    loader = _make_loader()
+    for method, kwargs in [
+        ("mc_dropout", {"n_samples": 3}),
+        ("msp", {}),
+        ("entropy", {}),
+        ("random", {}),
+    ]:
+        result = estimate_uncertainty(model, loader, method=method, **kwargs)
+        assert result.method == method
+        assert result.labels.shape == (8,)
+        assert result.probs.shape == (8, 2)
+        assert result.preds.shape == (8,)
+        assert result.scores.shape == (8,)
+        assert np.all(result.scores >= 0)
+        np.testing.assert_allclose(result.probs.sum(axis=1), 1.0, atol=1e-6)
+
+
+def test_mc_dropout_uncertainty_positive():
+    model = create_resnet18(pretrained=False)
+    loader = _make_loader(n=4)
+    result = estimate_uncertainty(model, loader, method="mc_dropout", n_samples=5)
+    assert np.all(result.scores >= 0)
+    assert result.extra["std_full"].shape == (4, 2)

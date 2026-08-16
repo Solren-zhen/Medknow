@@ -1,0 +1,81 @@
+# ============================================================
+# 肺炎X光AI辅助诊断系统 — 全局配置
+# ============================================================
+
+# --- 路径 ---
+paths:
+  data_dir: "data/chest_xray"
+  output_dir: "outputs"
+  model_dir: "outputs"
+
+# --- 设备 ---
+device:
+  # auto: 自动选择 MPS > CUDA > CPU
+  # 也可手动指定: "cuda", "mps", "cpu"
+  selection: "auto"
+
+# --- 数据 ---
+data:
+  image_size: 224
+  batch_size: 16
+  num_workers: 2
+  # 类别名称
+  class_names: ["NORMAL", "PNEUMONIA"]
+
+# --- 训练 ---
+training:
+  model_name: "resnet18"          # resnet18 | efficientnet_b0 | densenet121
+  epochs: 25
+  learning_rate: 0.0001
+  weight_decay: 0.00001
+  # 迁移学习策略
+  freeze_backbone: true           # 冻结预训练骨干
+  unfreeze_layers: ["layer4"]     # 解冻哪些层（仅 resnet 有效）
+  # 类别不平衡
+  use_weighted_sampler: true
+  # 早停
+  early_stopping:
+    enabled: true
+    patience: 5
+    monitor: "val_loss"           # val_loss | val_acc
+    min_delta: 0.001
+  # 学习率调度
+  lr_scheduler:
+    enabled: true
+    type: "reduce_on_plateau"     # reduce_on_plateau | cosine
+    factor: 0.5
+    patience: 3
+    min_lr: 0.000001
+  # 混合精度
+  use_amp: true
+  # 数据增强
+  augmentation:
+    random_horizontal_flip: true
+    random_rotation: 10           # 度
+    color_jitter_brightness: 0.2
+  # 日志
+  tensorboard: true
+  log_interval: 10                # 每 N 个 batch 记录一次
+
+# --- 不确定性量化 (MC Dropout) ---
+uncertainty:
+  mc_samples: 30                  # MC Dropout 采样次数
+  dropout_rate: 0.3               # 推理时启用 Dropout 的比率
+  std_threshold: 0.05             # 肺炎类别概率标准差 > 此值 → "不确定"
+
+# --- 可解释性 ---
+explainability:
+  methods: ["gradcam", "integrated_gradients", "occlusion"]
+  gradcam_target_layer: "layer4"  # ResNet: layer4[-1]; EfficientNet: features[-1]
+  ig_steps: 50                    # Integrated Gradients 步数
+  occlusion_size: 32              # Occlusion 窗口大小
+
+# --- API 服务 ---
+api:
+  host: "0.0.0.0"
+  port: 8000
+  max_upload_size_mb: 20
+
+# --- 数据库 ---
+database:
+  path: "outputs/predictions.db"

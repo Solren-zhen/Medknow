@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Project Roadmap
+    url: https://github.com/ojdanajakir848-a11y/medknow/blob/main/ROADMAP.md
+    about: Check planned work before opening a feature request.
+  - name: Paper manuscript
+    url: https://github.com/ojdanajakir848-a11y/medknow/blob/main/paper/output/doc/manuscript.md
+    about: Read the manuscript for study details and limitations.

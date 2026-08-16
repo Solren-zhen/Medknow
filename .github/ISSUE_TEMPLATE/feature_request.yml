@@ -1,0 +1,43 @@
+name: ✨ Feature request
+description: Suggest a new uncertainty method, cohort, or improvement
+title: "[Feature] "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the idea! Good features usually come with a **verifiable plan**
+        (see ROADMAP.md principles: no fabricated numbers, no unrun claims).
+  - type: textarea
+    id: feature
+    attributes:
+      label: What would you like to add?
+      description: A clear description of the feature (method, cohort, analysis, docs).
+    validations:
+      required: true
+  - type: textarea
+    id: motivation
+    attributes:
+      label: Why does it matter?
+      description: What question does it answer? Who benefits?
+    validations:
+      required: true
+  - type: textarea
+    id: plan
+    attributes:
+      label: Implementation sketch
+      description: Files to touch (e.g. src/medknow/uncertainty/, scripts/), how it will be verified.
+    validations:
+      required: false
+  - type: dropdown
+    id: scope
+    attributes:
+      label: Scope
+      options:
+        - New uncertainty method
+        - New external cohort / dataset
+        - Evaluation / metrics improvement
+        - Documentation
+        - Other
+    validations:
+      required: false

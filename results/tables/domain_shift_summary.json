@@ -1,0 +1,100 @@
+{
+  "table": [
+    {
+      "n": 896,
+      "pos_rate": 0.7555803571428571,
+      "auc": 0.9919332537450343,
+      "auprc": 0.9971469589356992,
+      "accuracy": 0.9609375,
+      "sensitivity": 0.9645494830132939,
+      "specificity": 0.9497716894977168,
+      "confusion": {
+        "tp": 653,
+        "fp": 11,
+        "tn": 208,
+        "fn": 24
+      },
+      "ece_raw": 0.03351355247887887,
+      "brier_raw": 0.03155438081325242,
+      "inference": "single_pass_raw",
+      "ece_style": "label_rate",
+      "ece_scaled": 0.03583607650515709,
+      "brier_scaled": 0.03089403200800928,
+      "dataset": "internal_test",
+      "validation_type": "internal",
+      "temperature": 1.6699899435043335
+    },
+    {
+      "n": 26684,
+      "pos_rate": 0.225303552690751,
+      "auc": 0.8067283220903394,
+      "auprc": 0.5084695552694546,
+      "accuracy": 0.6067306250936891,
+      "sensitivity": 0.9073519627411843,
+      "specificity": 0.5193014705882353,
+      "confusion": {
+        "tp": 5455,
+        "fp": 9937,
+        "tn": 10735,
+        "fn": 557
+      },
+      "ece_raw": 0.36923186761838633,
+      "brier_raw": 0.35492333567348383,
+      "inference": "single_pass_raw",
+      "ece_style": "label_rate",
+      "ece_scaled": 0.3604565709892078,
+      "brier_scaled": 0.33446235523069945,
+      "dataset": "rsna",
+      "validation_type": "external",
+      "temperature": 1.6699899435043335
+    },
+    {
+      "n": 9103,
+      "pos_rate": 0.005382840821707129,
+      "auc": 0.6580099899469397,
+      "auprc": 0.00969631538554121,
+      "accuracy": 0.6230912885861803,
+      "sensitivity": 0.6122448979591837,
+      "specificity": 0.6231499889551579,
+      "confusion": {
+        "tp": 30,
+        "fp": 3412,
+        "tn": 5642,
+        "fn": 19
+      },
+      "ece_raw": 0.2645990093283246,
+      "brier_raw": 0.3146066675468912,
+      "inference": "mc_mean_scaled",
+      "ece_style": "confidence",
+      "dataset": "nih",
+      "validation_type": "external",
+      "temperature": 1.6699899435043335
+    }
+  ],
+  "rsna_subgroups": {
+    "Lung Opacity": {
+      "n": 6012,
+      "positive_rate": 1.0,
+      "mean_prob": 0.9013648139259257,
+      "pos_rate_pred": 0.9073519627411843,
+      "fp_contribution": 0,
+      "fp_share": 0.0
+    },
+    "No Lung Opacity / Not Normal": {
+      "n": 11821,
+      "positive_rate": 0.0,
+      "mean_prob": 0.7000819053646207,
+      "pos_rate_pred": 0.7005329498350393,
+      "fp_contribution": 8281,
+      "fp_share": 0.8333501056656939
+    },
+    "Normal": {
+      "n": 8851,
+      "positive_rate": 0.0,
+      "mean_prob": 0.20308202476511794,
+      "pos_rate_pred": 0.18709750310699355,
+      "fp_contribution": 1656,
+      "fp_share": 0.16664989433430613
+    }
+  }
+}

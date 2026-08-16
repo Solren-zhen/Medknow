@@ -1,0 +1,123 @@
+{
+  "image": "paper\\figures\\fig3_calibration.png",
+  "figure_type": "calibration",
+  "journal": null,
+  "checks": {
+    "dimensions": {
+      "width_px": 4102,
+      "height_px": 2058,
+      "dpi_x": 599.9988,
+      "dpi_y": 599.9988,
+      "dpi_meets_spec": false,
+      "required_dpi": 600,
+      "width_in": 6.84,
+      "width_matches_spec": true,
+      "required_width_in": 7.0
+    },
+    "palette": {
+      "passed": true,
+      "out_of_palette_fraction": 0.0379,
+      "tolerance": 0.15,
+      "dominant_colors": [
+        {
+          "rgb": [
+            255,
+            255,
+            255
+          ],
+          "fraction": 0.9008,
+          "class": "neutral"
+        },
+        {
+          "rgb": [
+            248,
+            231,
+            217
+          ],
+          "fraction": 0.0229,
+          "class": "out_of_palette"
+        },
+        {
+          "rgb": [
+            217,
+            234,
+            243
+          ],
+          "fraction": 0.015,
+          "class": "out_of_palette"
+        },
+        {
+          "rgb": [
+            234,
+            234,
+            234
+          ],
+          "fraction": 0.0131,
+          "class": "neutral"
+        },
+        {
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "fraction": 0.0103,
+          "class": "neutral"
+        },
+        {
+          "rgb": [
+            0,
+            114,
+            178
+          ],
+          "fraction": 0.0095,
+          "class": "wong:blue"
+        },
+        {
+          "rgb": [
+            253,
+            253,
+            253
+          ],
+          "fraction": 0.0065,
+          "class": "neutral"
+        },
+        {
+          "rgb": [
+            51,
+            51,
+            51
+          ],
+          "fraction": 0.0041,
+          "class": "neutral"
+        },
+        {
+          "rgb": [
+            213,
+            94,
+            0
+          ],
+          "fraction": 0.0033,
+          "class": "wong:vermillion"
+        },
+        {
+          "rgb": [
+            102,
+            102,
+            102
+          ],
+          "fraction": 0.0021,
+          "class": "neutral"
+        }
+      ]
+    },
+    "ocr": {
+      "passed": null,
+      "note": "pytesseract not installed; install with `pip install pytesseract` (tesseract binary already at /opt/homebrew/bin/tesseract)"
+    }
+  },
+  "flags": [
+    "DPI below journal spec (599.9988 < 600)"
+  ],
+  "summary": "1 issue(s) flagged"
+}

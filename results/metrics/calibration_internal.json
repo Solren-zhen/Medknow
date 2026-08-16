@@ -1,0 +1,9 @@
+{
+  "weights": "checkpoints/seed_42.pth",
+  "temperature_fitted": 1.5685698508638732,
+  "ece_raw": 0.033513552515274166,
+  "ece_scaled": 0.036284656482737945,
+  "brier_raw": 0.03155438104246311,
+  "brier_scaled": 0.03083290664827293,
+  "ece_bins": 15
+}

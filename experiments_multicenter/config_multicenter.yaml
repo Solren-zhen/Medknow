@@ -1,0 +1,38 @@
+# 多中心外部验证实验配置
+# 注意：路径按 3060（Windows）真实位置修改
+
+paths:
+  chexpert_dir: "D:/datasets/chexpert"      # 含 train.csv / valid.csv / train/ 或 preprocessed 图
+  rsna_dir: "D:/datasets/rsna"              # 含 rsna_index.csv + png/
+  vindr_dir: "D:/datasets/vindr"            # 含 train.csv + png/（或 images/）
+  output_dir: "outputs_multicenter"
+
+model:
+  name: "efficientnet_b0"                   # efficientnet_b0 | resnet18
+  pretrained: true
+  freeze_backbone: true
+  dropout_rate: 0.3
+
+data:
+  image_size: 224
+  train_batch_size: 32
+  eval_batch_size: 64
+  num_workers: 4
+  chexpert_views: ["Frontal"]
+  chexpert_uncertain_policy: "ignore"       # ignore | as_negative | as_positive
+  chexpert_label_cols: ["Pneumonia"]
+  val_fraction: 0.15
+
+training:
+  epochs: 20
+  learning_rate: 0.0001
+  weight_decay: 0.00001
+  early_stopping_patience: 5
+  use_amp: true
+  seed: 42
+
+uncertainty:
+  mc_samples: 30
+
+metrics:
+  sensitivity_at_specificity: 0.95
