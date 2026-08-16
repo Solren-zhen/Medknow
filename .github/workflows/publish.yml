@@ -1,13 +1,12 @@
 name: Publish to PyPI
 
-# Publishes a new release to PyPI when a v* tag is pushed.
+# Publishes a release to PyPI.
 # Requires a PyPI token in the repository secrets as PYPI_TOKEN
 # (see https://pypi.org/manage/account/token/).
+# NOTE: manual trigger only until PYPI_TOKEN is configured.
 
 on:
-  push:
-    tags:
-      - "v*"
+  workflow_dispatch:
 
 jobs:
   build-and-publish:
