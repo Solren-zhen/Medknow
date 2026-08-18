@@ -1,5 +1,5 @@
 # MedKnow Streamlit demo (Streamlit Community Cloud)
-streamlit>=1.40
+streamlit>=1.61.1
 torch==2.5.1
 torchvision==0.20.1
 numpy>=1.24
