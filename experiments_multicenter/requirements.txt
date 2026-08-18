@@ -8,4 +8,4 @@ matplotlib
 pillow
 PyYAML
 # 仅 RSNA DICOM 转换需要
-pydicom>=2.3
+pydicom>=3.0.2
