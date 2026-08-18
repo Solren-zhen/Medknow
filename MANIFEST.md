@@ -42,9 +42,7 @@
 
 ## 发布前必做（checklist）
 
-1. **替换占位符**（6 个文件，先全仓搜索 `YOUR_USERNAME`）：
-   - `README.md` / `README_zh-CN.md` / `HF_SPACE.md` / `notebooks/medknow_colab.ipynb` / `hf_space/app.py` / `hf_space/README.md` → 你的 GitHub 用户名与 Space 名；
-   - `README.md` `16 Citation 中的 `<your-username>` 与 `<Corresponding author name>`。
+1. **发布信息核对**：仓库中的 GitHub 链接、作者字段和 Space 链接已替换为当前项目地址；发布前仍应由实际维护者确认作者署名和模型权重下载地址。
 2. **HF Space 部署**（免费，约 5 分钟）：新建 Space → 推 `hf_space/` 内文件 → 上传 `outputs/pneumonia_model.pth`（重命名 `model.pth`）+ `outputs/experiments/resnet18_20260801_180344/temperature.txt`。
 3. **GitHub Release v1.0.0**：附 3 个 seed 权重（`checkpoints/seed_42.pth`、`seed_2024.pth`、`seed_2026.pth`）+ `temperature.txt`，供 Colab 与外部复现下载。
 4. **推送建仓**：`git add -A && git commit && git push` → 建 GitHub 仓库（V1.0 含 HF Demo）。

@@ -3,8 +3,9 @@
 # Preferred install: pip install -e ".[dev]"  (source of truth: pyproject.toml)
 # This file exists for quick environment setup and demo deployment.
 
-torch>=2.0
-torchvision>=0.15
+# Keep aligned with environment.yml and CI's CPU smoke-test environment.
+torch==2.5.1
+torchvision==0.20.1
 numpy>=1.24
 pandas>=2.0
 matplotlib>=3.7

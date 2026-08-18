@@ -12,7 +12,8 @@ def compute_ece(probs: np.ndarray, labels: np.ndarray, n_bins: int = 15) -> floa
     bins = np.linspace(0.0, 1.0, n_bins + 1)
     ece = 0.0
     for i in range(n_bins):
-        mask = (probs > bins[i]) & (probs <= bins[i + 1])
+        left = probs >= bins[i] if i == 0 else probs > bins[i]
+        mask = left & (probs <= bins[i + 1])
         if mask.sum() == 0:
             continue
         ece += (mask.sum() / len(probs)) * abs(
@@ -72,7 +73,8 @@ def compute_ece_confidence(probs, labels, n_bins=15):
     bins = np.linspace(0.0, 1.0, n_bins + 1)
     ece = 0.0
     for i in range(n_bins):
-        mask = (conf > bins[i]) & (conf <= bins[i + 1])
+        left = conf >= bins[i] if i == 0 else conf > bins[i]
+        mask = left & (conf <= bins[i + 1])
         if mask.sum() == 0:
             continue
         ece += (mask.sum() / len(conf)) * abs(acc[mask].mean() - conf[mask].mean())

@@ -10,8 +10,7 @@ abstract: >-
   scaling; and external validation on RSNA and NIH ChestXray-14 showing that
   uncertainty-guided referral works in-domain but fails under domain shift.
 authors:
-  - name: "<Corresponding author name>"
-  - name: "<Additional author>"
+  - name: "MedKnow authors"
 date-released: "2026-08-14"
 keywords:
   - medical-ai
@@ -23,7 +22,7 @@ keywords:
   - external validation
   - domain shift
 license: MIT
-repository-code: "https://github.com/<your-username>/medknow"
+repository-code: "https://github.com/Solren-zhen/Medknow"
 # After publication, add:
 # preferred-citation:
 #   type: article

@@ -7,7 +7,7 @@ import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
-from medknow.evaluation.metrics import compute_metrics
+from medknow.evaluation.metrics import bootstrap_confidence_intervals, compute_metrics
 from medknow.evaluation.subgroups import subgroup_table
 
 
@@ -44,3 +44,23 @@ def test_subgroup_table_counts_and_fp_shares():
     fp_total = sum(v["fp_contribution"] for v in table.values())
     assert fp_total == 2
     assert abs(sum(v["fp_share"] for v in table.values()) - 1.0) < 1e-12
+
+
+def test_patient_cluster_bootstrap_keeps_groups_together():
+    labels = np.array([0, 0, 1, 1, 0, 1])
+    probs = np.array([0.1, 0.2, 0.8, 0.9, 0.3, 0.7])
+    groups = np.array(["p1", "p1", "p2", "p2", "p3", "p3"])
+    result = bootstrap_confidence_intervals(
+        labels, probs, groups=groups, n_bootstrap=25, seed=7
+    )
+    assert result["bootstrap"]["unit"] == "group"
+    assert result["bootstrap"]["n_units"] == 3
+    assert 0 < result["auc"]["n_valid"] <= 25
+
+
+def test_calibration_parameters_are_reported():
+    metrics = compute_metrics(
+        np.array([0, 0, 1, 1]), np.array([0.1, 0.2, 0.8, 0.9])
+    )
+    assert metrics["calibration_intercept"] is not None
+    assert metrics["calibration_slope"] is not None

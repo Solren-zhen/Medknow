@@ -21,6 +21,8 @@ from torch.utils.data import DataLoader, Dataset
 from torchvision import transforms
 from torchvision.datasets import ImageFolder
 
+from medknow.datasets.split import patient_id
+
 IMG_EXTS = {".jpg", ".jpeg", ".png"}
 
 
@@ -29,6 +31,7 @@ class CXRImageFolder(ImageFolder):
 
     def __init__(self, root: str | Path, transform: Callable | None = None):
         super().__init__(str(root), transform=transform)
+        self.patient_ids = [patient_id(Path(path).name) for path, _ in self.samples]
 
 
 class NIHChestXray(CXRImageFolder):

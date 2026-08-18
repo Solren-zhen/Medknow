@@ -15,6 +15,17 @@ from torch import nn
 from torchvision import models
 
 
+def list_available_models() -> dict[str, dict[str, str]]:
+    """Return the architectures supported by the formal ``medknow`` package."""
+    return {
+        "resnet18": {
+            "name": "ResNet-18",
+            "input_size": "224",
+            "description": "ImageNet-pretrained ResNet-18 with a dropout head",
+        }
+    }
+
+
 def create_resnet18(
     num_classes: int = 2,
     pretrained: bool = True,

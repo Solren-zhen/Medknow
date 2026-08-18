@@ -6,4 +6,4 @@ can identify unreliable chest X-ray predictions, and whether that signal
 survives domain shift.
 """
 
-__version__ = "0.1.0"
+__version__ = "1.0.0"

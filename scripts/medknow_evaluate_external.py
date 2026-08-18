@@ -46,7 +46,7 @@ from medknow.datasets.chest_xray import (
     build_rsna_dataset,
     make_loader,
 )
-from medknow.evaluation.metrics import compute_metrics
+from medknow.evaluation.metrics import bootstrap_confidence_intervals, compute_metrics
 from medknow.evaluation.subgroups import subgroup_table
 from medknow.models.factory import load_trained_model
 from medknow.training.inference import predict_batch_probs
@@ -92,6 +92,8 @@ def _evaluate_cohort(
     batch_size,
     num_workers,
     device,
+    n_bootstrap,
+    bootstrap_seed,
 ):
     loader = make_loader(
         dataset, batch_size=batch_size, shuffle=False, num_workers=num_workers
@@ -105,6 +107,14 @@ def _evaluate_cohort(
         labels, probs = predict_batch_probs(model, loader, temperature=1.0)
 
     row = compute_metrics(labels, probs[:, 1], n_bins=n_bins)
+    row["confidence_intervals"] = bootstrap_confidence_intervals(
+        labels,
+        probs[:, 1],
+        groups=getattr(dataset, "patient_ids", None),
+        n_bootstrap=n_bootstrap,
+        seed=bootstrap_seed,
+        n_bins=n_bins,
+    )
     row["ece_raw"] = _ece(probs, labels, ece_style, n_bins)
     row["inference"] = inference
     row["ece_style"] = ece_style
@@ -124,6 +134,8 @@ def main() -> None:
     ap.add_argument("--only", default=None, choices=["internal_test", "rsna", "nih"])
     ap.add_argument("--out", default=None)
     ap.add_argument("--limit", type=int, default=None, help="smoke: first N images per cohort")
+    ap.add_argument("--bootstrap-iters", type=int, default=None)
+    ap.add_argument("--bootstrap-seed", type=int, default=None)
     args = ap.parse_args()
 
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
@@ -133,6 +145,14 @@ def main() -> None:
     num_workers = int(get(cfg, "data.num_workers"))
     ece_bins = int(get(cfg, "calibration.ece_bins", 15))
     n_samples = args.mc_samples or int(get(cfg, "evaluation.mc_samples", 30))
+    n_bootstrap = args.bootstrap_iters
+    if n_bootstrap is None:
+        n_bootstrap = int(get(cfg, "evaluation.bootstrap_iters", 2000))
+    bootstrap_seed = int(
+        args.bootstrap_seed
+        if args.bootstrap_seed is not None
+        else get(cfg, "evaluation.bootstrap_seed", 42)
+    )
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     temperature = _resolve_temperature(cfg, args.temperature)
 
@@ -170,6 +190,10 @@ def main() -> None:
             continue
         if args.limit is not None and hasattr(dataset, "samples"):
             dataset.samples = dataset.samples[: args.limit]
+            if hasattr(dataset, "targets"):
+                dataset.targets = dataset.targets[: args.limit]
+            if hasattr(dataset, "patient_ids"):
+                dataset.patient_ids = dataset.patient_ids[: args.limit]
         proto = get(cfg, f"evaluation.protocols.{name}", {}) or {}
         inference = proto.get("inference", PROTOCOL_SINGLE)
         ece_style = proto.get("ece_style", ECE_LABEL_RATE)
@@ -182,6 +206,7 @@ def main() -> None:
             inference=inference, ece_style=ece_style, temperature=temperature,
             n_bins=ece_bins, n_samples=n_samples, batch_size=batch_size,
             num_workers=num_workers, device=device,
+            n_bootstrap=n_bootstrap, bootstrap_seed=bootstrap_seed,
         )
         row.update({"dataset": name, "validation_type": vtype, "temperature": temperature})
         table.append(row)

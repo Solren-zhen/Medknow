@@ -21,6 +21,7 @@ def test_default_config_has_required_sections():
         "calibration",
         "referral",
         "evaluation",
+        "api",
     ):
         assert section in cfg, f"missing config section: {section}"
 
@@ -36,6 +37,7 @@ def test_defaults_match_manuscript_settings():
     assert get(cfg, "referral.decision_threshold") == 0.5
     assert 0.10 in get(cfg, "referral.rates")
     assert 0.25 in get(cfg, "referral.rates")
+    assert get(cfg, "api.max_mc_samples") == 50
 
 
 def test_relative_paths_resolved_against_project_root():
@@ -66,6 +68,12 @@ def test_repo_configs_load():
         cfg = load_config(str(PROJECT_ROOT / "configs" / name))
         assert get(cfg, "model.name") == "resnet18"
         assert get(cfg, "uncertainty.mc_samples") == 30
+
+
+def test_checkpoint_reproducibility_defaults():
+    cfg = load_config(None)
+    assert get(cfg, "evaluation.bootstrap_iters") == 2000
+    assert get(cfg, "evaluation.bootstrap_seed") == 42
 
 
 def test_missing_config_raises():

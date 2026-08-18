@@ -117,6 +117,30 @@ DEFAULT_CONFIG: dict[str, Any] = {
             "nih": {"inference": "mc_mean_scaled", "ece_style": "confidence"},
         },
     },
+    "api": {
+        "host": "0.0.0.0",
+        "port": 8000,
+        "max_upload_size_mb": 20,
+        "max_image_pixels": 12000000,
+        "max_mc_samples": 50,
+        "allowed_origins": [
+            "http://localhost:8501",
+            "http://127.0.0.1:8501",
+            "http://localhost:7860",
+            "http://127.0.0.1:7860",
+        ],
+        "allowed_content_types": [
+            "image/jpeg",
+            "image/png",
+            "image/webp",
+            "image/bmp",
+            "image/tiff",
+            "application/dicom",
+            "application/octet-stream",
+        ],
+        "allowed_extensions": [".jpg", ".jpeg", ".png", ".webp", ".bmp", ".tif", ".tiff", ".dcm", ".dicom"],
+        "admin_token": None,
+    },
 }
 
 

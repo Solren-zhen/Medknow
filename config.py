@@ -67,7 +67,30 @@ def _default_config() -> dict[str, Any]:
         },
         "uncertainty": {"mc_samples": 30, "dropout_rate": 0.3, "std_threshold": 0.05},
         "explainability": {"methods": ["gradcam", "integrated_gradients", "occlusion"], "gradcam_target_layer": "layer4", "ig_steps": 50, "occlusion_size": 32},
-        "api": {"host": "0.0.0.0", "port": 8000, "max_upload_size_mb": 20},
+        "api": {
+            "host": "0.0.0.0",
+            "port": 8000,
+            "max_upload_size_mb": 20,
+            "max_image_pixels": 12000000,
+            "max_mc_samples": 50,
+            "allowed_content_types": [
+                "image/jpeg",
+                "image/png",
+                "image/webp",
+                "image/bmp",
+                "image/tiff",
+                "application/dicom",
+                "application/octet-stream",
+            ],
+            "allowed_extensions": [".jpg", ".jpeg", ".png", ".webp", ".bmp", ".tif", ".tiff", ".dcm", ".dicom"],
+            "allowed_origins": [
+                "http://localhost:8501",
+                "http://127.0.0.1:8501",
+                "http://localhost:7860",
+                "http://127.0.0.1:7860",
+            ],
+            "admin_token": None,
+        },
         "database": {"path": str(PROJECT_ROOT / "outputs" / "predictions.db")},
     }
 

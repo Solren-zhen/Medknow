@@ -8,7 +8,7 @@
 选择性预测基准项目，核心发现是：不确定性转诊在域内有效，但在域漂移下失效。
 
 [![Live Demo](https://img.shields.io/badge/🖥️-Live%20Demo-FF4B4B)](https://huggingface.co/spaces/ojdanajakir848-a11y/medknow-pneumonia-xray)
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ojdanajakir848-a11y/medknow/blob/main/notebooks/medknow_colab.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Solren-zhen/Medknow/blob/main/notebooks/medknow_colab.ipynb)
 [![Python](https://img.shields.io/badge/Python-3.11+-3776AB?style=flat&logo=python&logoColor=white)](https://www.python.org)
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.x-EE4C2C?style=flat&logo=pytorch&logoColor=white)](https://pytorch.org)
 [![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
@@ -29,7 +29,7 @@
 
 | 方式 | 入口 |
 |---|---|
-| **零安装演示** | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ojdanajakir848-a11y/medknow/blob/main/notebooks/medknow_colab.ipynb) — 加载权重、对示例胸片跑 MC Dropout 不确定性、画转诊曲线，免费 CPU/GPU 运行时 |
+| **零安装演示** | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Solren-zhen/Medknow/blob/main/notebooks/medknow_colab.ipynb) — 加载权重、对示例胸片跑 MC Dropout 不确定性、画转诊曲线，免费 CPU/GPU 运行时 |
 | **在线 Demo** | [🖥️ Hugging Face Space](https://huggingface.co/spaces/ojdanajakir848-a11y/medknow-pneumonia-xray) — 上传胸片即可看到预测 + 不确定性 + Grad-CAM |
 | **本地安装** | `pip install -e ".[dev]" ` 或 `conda env create -f environment.yml` |
 
@@ -202,10 +202,10 @@ medknow/
 
 ```bibtex
 @software{medknow2026,
-  author = {<通讯作者>},
+  author = {MedKnow authors},
   title  = {MedKnow: Teaching Medical AI When Not to Know},
   year   = {2026},
-  url    = {https://github.com/<你的用户名>/medknow}
+  url    = {https://github.com/Solren-zhen/Medknow}
 }
 ```
 

@@ -50,7 +50,7 @@ cannot be trusted on internal validation alone.
 
 ## Source & citation
 
-- GitHub: <https://github.com/ojdanajakir848-a11y/medknow>
+- GitHub: <https://github.com/Solren-zhen/Medknow>
 - Manuscript: `paper/output/doc/manuscript.md`
 - Citation: see `CITATION.cff` in the repository
 

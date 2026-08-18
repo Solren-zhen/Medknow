@@ -9,6 +9,7 @@ CUDA. Random seeds are set before training for reproducibility.
 from __future__ import annotations
 
 import logging
+import platform
 import random
 from pathlib import Path
 from typing import Any
@@ -23,6 +24,30 @@ from torch.utils.data import DataLoader
 from medknow.config import get
 
 logger = logging.getLogger(__name__)
+
+
+def _checkpoint_metadata(config: dict[str, Any], seed: int) -> dict[str, Any]:
+    """Build portable metadata so a checkpoint is not detached from its protocol."""
+    return {
+        "checkpoint_format": 1,
+        "model_name": get(config, "model.name", "resnet18"),
+        "num_classes": int(get(config, "model.num_classes", 2)),
+        "class_names": list(get(config, "data.class_names", ["NORMAL", "PNEUMONIA"])),
+        "input_size": int(get(config, "data.image_size", 224)),
+        "normalization": {
+            "mean": [0.485, 0.456, 0.406],
+            "std": [0.229, 0.224, 0.225],
+        },
+        "dropout_rate": float(get(config, "model.dropout_rate", 0.3)),
+        "seed": int(seed),
+        "python_version": platform.python_version(),
+        "torch_version": torch.__version__,
+        "config": {
+            "model": get(config, "model"),
+            "training": get(config, "training"),
+            "data": get(config, "data"),
+        },
+    }
 
 
 def set_seed(seed: int) -> None:
@@ -179,11 +204,7 @@ def train_model(
                     "optimizer_state_dict": optimizer.state_dict(),
                     "epoch": epoch,
                     "best_val_loss": best_val_loss,
-                    "config": {
-                        "model": get(config, "model"),
-                        "training": get(config, "training"),
-                        "data": get(config, "data"),
-                    },
+                    "metadata": _checkpoint_metadata(config, seed),
                 },
                 out_path,
             )

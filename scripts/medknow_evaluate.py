@@ -20,9 +20,7 @@ from pathlib import Path
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(PROJECT_ROOT / "src"))
 
-import numpy as np
 import torch
-from sklearn.metrics import average_precision_score, roc_auc_score
 
 from medknow.calibration.metrics import compute_brier, compute_ece
 from medknow.config import get, load_config
@@ -31,30 +29,9 @@ from medknow.datasets.chest_xray import (
     build_internal_dataset,
     make_loader,
 )
+from medknow.evaluation.metrics import bootstrap_confidence_intervals, compute_metrics
 from medknow.models.factory import load_trained_model
 from medknow.training.inference import predict_batch_probs
-
-
-def compute_metrics(labels: np.ndarray, p_pos: np.ndarray) -> dict:
-    preds = (p_pos >= 0.5).astype(int)
-    acc = float((preds == labels).mean())
-    tp = int(((preds == 1) & (labels == 1)).sum())
-    fp = int(((preds == 1) & (labels == 0)).sum())
-    tn = int(((preds == 0) & (labels == 0)).sum())
-    fn = int(((preds == 0) & (labels == 1)).sum())
-    two_classes = len(np.unique(labels)) > 1
-    return {
-        "n": len(labels),
-        "pos_rate": float(labels.mean()),
-        "auc": float(roc_auc_score(labels, p_pos)) if two_classes else None,
-        "auprc": float(average_precision_score(labels, p_pos)) if two_classes else None,
-        "accuracy": acc,
-        "sensitivity": tp / max(tp + fn, 1),
-        "specificity": tn / max(tn + fp, 1),
-        "confusion": {"tp": tp, "fp": fp, "tn": tn, "fn": fn},
-        "ece_raw": compute_ece(p_pos, labels),
-        "brier_raw": compute_brier(p_pos, labels),
-    }
 
 
 def main() -> None:
@@ -65,6 +42,8 @@ def main() -> None:
     ap.add_argument("--data_dir", default=None, help="override split dir")
     ap.add_argument("--temperature", type=float, default=None)
     ap.add_argument("--out", default=None, help="output JSON path")
+    ap.add_argument("--bootstrap-iters", type=int, default=None)
+    ap.add_argument("--bootstrap-seed", type=int, default=None)
     args = ap.parse_args()
 
     logging.basicConfig(level=logging.INFO)
@@ -82,7 +61,19 @@ def main() -> None:
     )
 
     labels, probs = predict_batch_probs(model, loader, temperature=1.0)
-    result = compute_metrics(labels, probs[:, 1])
+    result = compute_metrics(labels, probs[:, 1], n_bins=int(get(cfg, "calibration.ece_bins", 15)))
+    groups = getattr(loader.dataset, "patient_ids", None)
+    bootstrap_iters = args.bootstrap_iters
+    if bootstrap_iters is None:
+        bootstrap_iters = int(get(cfg, "evaluation.bootstrap_iters", 2000))
+    result["confidence_intervals"] = bootstrap_confidence_intervals(
+        labels,
+        probs[:, 1],
+        groups=groups,
+        n_bootstrap=bootstrap_iters,
+        seed=int(args.bootstrap_seed if args.bootstrap_seed is not None else get(cfg, "evaluation.bootstrap_seed", 42)),
+        n_bins=int(get(cfg, "calibration.ece_bins", 15)),
+    )
 
     temperature = args.temperature
     if temperature is None:

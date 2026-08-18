@@ -75,6 +75,34 @@ api:
   host: "0.0.0.0"
   port: 8000
   max_upload_size_mb: 20
+  max_image_pixels: 12000000
+  max_mc_samples: 50
+  # 管理端点 /history、/statistics、/feedback 默认需要 token。
+  # 生产环境建议使用环境变量 MEDKNOW_API_ADMIN_TOKEN，不要把密钥提交到仓库。
+  admin_token: null
+  allowed_origins:
+    - "http://localhost:8501"
+    - "http://127.0.0.1:8501"
+    - "http://localhost:7860"
+    - "http://127.0.0.1:7860"
+  allowed_content_types:
+    - "image/jpeg"
+    - "image/png"
+    - "image/webp"
+    - "image/bmp"
+    - "image/tiff"
+    - "application/dicom"
+    - "application/octet-stream"
+  allowed_extensions:
+    - ".jpg"
+    - ".jpeg"
+    - ".png"
+    - ".webp"
+    - ".bmp"
+    - ".tif"
+    - ".tiff"
+    - ".dcm"
+    - ".dicom"
 
 # --- 数据库 ---
 database:

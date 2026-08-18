@@ -11,6 +11,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
 from medknow.models.factory import create_resnet18
 from medknow.uncertainty.base import estimate_uncertainty
+from medknow.uncertainty.conformal import estimate_conformal
 
 
 def _make_loader(n=8):
@@ -44,3 +45,67 @@ def test_mc_dropout_uncertainty_positive():
     result = estimate_uncertainty(model, loader, method="mc_dropout", n_samples=5)
     assert np.all(result.scores >= 0)
     assert result.extra["std_full"].shape == (4, 2)
+
+
+def test_conformal_known_logits_labels():
+    cal_logits = np.array([
+        [4.0, 0.0],
+        [0.0, 4.0],
+        [3.0, 0.0],
+        [0.0, 3.0],
+    ])
+    cal_labels = np.array([0, 1, 0, 1])
+    logits = np.array([
+        [5.0, 0.0],
+        [0.0, 5.0],
+        [5.0, 0.0],
+        [0.0, 5.0],
+    ])
+    labels = np.array([0, 1, 0, 1])
+
+    result = estimate_conformal(logits, labels, cal_logits, cal_labels, alpha=0.25)
+
+    assert result.method == "conformal"
+    assert result.labels.tolist() == [0, 1, 0, 1]
+    assert result.probs.shape == (4, 2)
+    assert result.extra["set_sizes"].tolist() == [1, 1, 1, 1]
+    assert result.extra["empirical_coverage"] == 1.0
+
+
+def test_conformal_dispatcher_keeps_logits_label_order():
+    class TinyModel(torch.nn.Module):
+        def __init__(self):
+            super().__init__()
+            self.weight = torch.nn.Parameter(torch.ones(1))
+
+        def forward(self, x):
+            return x[:, :2] * self.weight
+
+    images = torch.tensor([
+        [5.0, 0.0, 0.0],
+        [0.0, 5.0, 0.0],
+        [5.0, 0.0, 0.0],
+        [0.0, 5.0, 0.0],
+    ])
+    labels = torch.tensor([0, 1, 0, 1])
+    loader = DataLoader(TensorDataset(images, labels), batch_size=2)
+    cal_logits = np.array([
+        [4.0, 0.0],
+        [0.0, 4.0],
+        [3.0, 0.0],
+        [0.0, 3.0],
+    ])
+    cal_labels = np.array([0, 1, 0, 1])
+
+    result = estimate_uncertainty(
+        TinyModel(),
+        loader,
+        method="conformal",
+        cal_logits=cal_logits,
+        cal_labels=cal_labels,
+        alpha=0.25,
+    )
+
+    assert result.labels.tolist() == [0, 1, 0, 1]
+    assert result.probs.shape == (4, 2)
+    assert result.extra["set_sizes"].tolist() == [1, 1, 1, 1]

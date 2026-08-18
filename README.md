@@ -9,7 +9,7 @@ for uncertainty-aware referral and selective prediction in medical imaging, show
 that the signal works **in-domain** but **fails under domain shift**.
 
 [![Live Demo](https://img.shields.io/badge/🖥️-Live%20Demo-FF4B4B)](https://huggingface.co/spaces/ojdanajakir848-a11y/medknow-pneumonia-xray)
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ojdanajakir848-a11y/medknow/blob/main/notebooks/medknow_colab.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Solren-zhen/Medknow/blob/main/notebooks/medknow_colab.ipynb)
 [![PyPI](https://img.shields.io/pypi/v/medknow.svg)](https://pypi.org/project/medknow/)
 [![Python](https://img.shields.io/badge/Python-3.11+-3776AB?style=flat&logo=python&logoColor=white)](https://www.python.org)
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.x-EE4C2C?style=flat&logo=pytorch&logoColor=white)](https://pytorch.org)
@@ -53,7 +53,7 @@ referral signal must be re-validated in every new deployment environment.
 
 | What | Where |
 |---|---|
-| **Zero-install demo** | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ojdanajakir848-a11y/medknow/blob/main/notebooks/medknow_colab.ipynb) — load weights, run MC Dropout on sample X-rays, plot the referral curves. Free CPU/GPU runtime. |
+| **Zero-install demo** | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Solren-zhen/Medknow/blob/main/notebooks/medknow_colab.ipynb) — load weights, run MC Dropout on sample X-rays, plot the referral curves. Free CPU/GPU runtime. |
 | **Live web demo** | [🖥️ Hugging Face Space](https://huggingface.co/spaces/ojdanajakir848-a11y/medknow-pneumonia-xray) — upload a chest X-ray, see prediction + uncertainty + Grad-CAM. |
 | **pip install** | `pip install -e ".[dev]"` (or `conda env create -f environment.yml`) |
 | **Package** | `pip install medknow` — uncertainty / calibration / referral as a library |
@@ -158,7 +158,7 @@ ResNet-18, ImageNet-pretrained, frozen backbone with the final residual block
 (lr 1e-4, weight decay 1e-5), batch 16, early stopping (patience 5), AMP, on a
 single RTX 3060 (PyTorch 2.5). Checkpoints: `checkpoints/seed_42.pth`,
 `seed_2024.pth`, `seed_2026.pth` — also published as a
-[GitHub Release](https://github.com/ojdanajakir848-a11y/medknow/releases) and in the
+[GitHub Release](https://github.com/Solren-zhen/Medknow/releases) and in the
 [Hugging Face Space](https://huggingface.co/spaces/ojdanajakir848-a11y/medknow-pneumonia-xray).
 
 ## 7. Uncertainty methods
@@ -340,14 +340,14 @@ If you use MedKnow in your research, please cite it:
 
 ```bibtex
 @software{medknow2026,
-  author = {<Corresponding author name>},
+  author = {MedKnow authors},
   title  = {MedKnow: Teaching Medical AI When Not to Know},
   year   = {2026},
-  url    = {https://github.com/<your-username>/medknow}
+  url    = {https://github.com/Solren-zhen/Medknow}
 }
 ```
 
-<!-- TODO(publish): replace <your-username> and <Corresponding author name>, add arXiv ID -->
+<!-- TODO(publish): add arXiv ID after preprint release -->
 
 ## 17. Dataset access
 

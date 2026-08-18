@@ -82,7 +82,7 @@ def estimate_uncertainty(model, loader, method: str = "mc_dropout", **kwargs) ->
         cal_logits = np.asarray(kwargs.pop("cal_logits"))
         cal_labels = np.asarray(kwargs.pop("cal_labels"))
         alpha = float(kwargs.pop("alpha", 0.1))
-        logits, labels = collect_logits(model, loader, device=device)
+        labels, logits = collect_logits(model, loader, device=device)
         return estimate_conformal(logits, labels, cal_logits, cal_labels, alpha=alpha)
     if method == "ensemble":
         from medknow.uncertainty.ensemble import estimate_ensemble

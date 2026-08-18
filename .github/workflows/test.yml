@@ -34,7 +34,7 @@ jobs:
           pip install --upgrade pip
           # Pin the exact +cpu build so pip takes it from the PyTorch index;
           # --extra-index-url keeps torch's deps (sympy, etc.) resolvable from PyPI.
-          pip install "torch==2.13.0+cpu" torchvision --index-url https://download.pytorch.org/whl/cpu --extra-index-url https://pypi.org/simple
+          pip install "torch==2.5.1+cpu" "torchvision==0.20.1+cpu" --index-url https://download.pytorch.org/whl/cpu --extra-index-url https://pypi.org/simple
 
       - name: Install package and dev dependencies
         run: |

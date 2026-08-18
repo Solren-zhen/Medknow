@@ -4,6 +4,8 @@
 import sys
 from pathlib import Path
 
+import pytest
+
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
 
@@ -152,3 +154,44 @@ class TestDatabase:
         assert stats["pneumonia_count"] == 1
         assert stats["normal_count"] == 1
         assert stats["uncertain_count"] == 1
+
+
+class TestAPISecurity:
+    """测试 API 安全边界"""
+
+    def test_history_requires_admin_token(self, monkeypatch):
+        from fastapi.testclient import TestClient
+
+        monkeypatch.setenv("MEDKNOW_API_ADMIN_TOKEN", "test-secret")
+        from api.main import app
+
+        client = TestClient(app)
+        unauthorized = client.get("/history")
+        assert unauthorized.status_code == 401
+
+        authorized = client.get(
+            "/history",
+            headers={"X-MedKnow-Admin-Token": "test-secret"},
+        )
+        assert authorized.status_code == 200
+
+    def test_history_disabled_without_admin_token(self, monkeypatch):
+        from fastapi.testclient import TestClient
+
+        monkeypatch.delenv("MEDKNOW_API_ADMIN_TOKEN", raising=False)
+        from api.main import app
+
+        client = TestClient(app)
+        response = client.get("/history")
+        assert response.status_code == 503
+
+    def test_large_image_pixel_limit_rejected(self, monkeypatch):
+        from fastapi import HTTPException
+        from PIL import Image
+
+        import api.main as api_main
+
+        monkeypatch.setattr(api_main, "MAX_IMAGE_PIXELS", 4)
+        with pytest.raises(HTTPException) as exc:
+            api_main._validate_image_pixels(Image.new("RGB", (3, 3)))
+        assert exc.value.status_code == 413
