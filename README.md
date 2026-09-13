@@ -10,7 +10,7 @@ that the signal works **in-domain** but **fails under domain shift**.
 
 [![Live Demo](https://img.shields.io/badge/🖥️-Live%20Demo-FF4B4B)](https://huggingface.co/spaces/ojdanajakir848-a11y/medknow-pneumonia-xray)
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Solren-zhen/Medknow/blob/main/notebooks/medknow_colab.ipynb)
-[![PyPI](https://img.shields.io/pypi/v/medknow.svg)](https://pypi.org/project/medknow/)
+[![PyPI](https://img.shields.io/badge/PyPI-planned%20v1.1-grey)](https://github.com/Solren-zhen/Medknow/blob/main/ROADMAP.md)
 [![Python](https://img.shields.io/badge/Python-3.11+-3776AB?style=flat&logo=python&logoColor=white)](https://www.python.org)
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.x-EE4C2C?style=flat&logo=pytorch&logoColor=white)](https://pytorch.org)
 [![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
@@ -25,6 +25,21 @@ that the signal works **in-domain** but **fails under domain shift**.
 
 > ⚠️ **Research / education only.** This is not a medical device and must not be
 > used for diagnosis.
+
+---
+
+## 🏥 Why this matters clinically
+
+Every deployed medical-AI system silently decides *whose images get a human
+second read and whose don't*. Confidence-based triage assumes the model knows
+when it is likely to be wrong. This project shows that the assumption breaks
+exactly where deployment actually happens — at a new hospital, on a new
+scanner — and provides a reproducible evaluation protocol (patient-level
+splits, external cohorts, calibration, referral curves, error patterns) for
+the question a hospital committee actually asks: **can this model be trusted
+here, and who should it defer to?** The intended audience is clinicians and
+students learning to audit medical AI, and engineers who need a reference
+workflow for external validation.
 
 ---
 
