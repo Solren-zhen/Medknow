@@ -12,7 +12,7 @@ license = { text = "MIT" }
 keywords = ["medical-ai", "chest-xray", "uncertainty", "referral", "domain-shift", "pytorch", "calibration"]
 dependencies = [
     "torch>=2.5.1,<2.6",
-    "torchvision>=0.20.1,<0.21",
+    "torchvision>=0.20.1,<0.30",
     "numpy>=1.24",
     "pandas>=2.0",
     "scikit-learn>=1.3",
