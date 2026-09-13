@@ -1,0 +1,90 @@
+{
+  "protocol": {
+    "weights": "C:\\Users\\甄朝晖\\Desktop\\pneumonia\\pneumonia_classifier\\checkpoints\\seed_42.pth",
+    "inference": "single_pass_raw (T=1.0)",
+    "note": "manuscript NIH headline used mc_mean_scaled (30 passes, T=1.67); view stratification uses single-pass probabilities",
+    "n_bootstrap": 2000,
+    "bootstrap_seed": 42
+  },
+  "internal_anchor": {
+    "n": 896,
+    "auc_single_pass": 0.9919332537450342,
+    "manuscript_anchor_auc": 0.9919,
+    "view": "PA-only (Kermany et al. 2018 release; all frontal PA acquisitions)"
+  },
+  "nih_overall": {
+    "stratum": "NIH overall (PA+AP)",
+    "n": 9103,
+    "n_pos": 49,
+    "prevalence": 0.005382840821707129,
+    "auc": 0.6589848663123301,
+    "auc_ci95": [
+      0.5832247445035005,
+      0.7331599124076403
+    ],
+    "ece_label_rate": 0.3595073949844251,
+    "error_pred_auc_low_confidence": 0.48927331765759713,
+    "sensitivity": 0.6122448979591837,
+    "specificity": 0.6227081952728076,
+    "tp": 30,
+    "fp": 3416,
+    "tn": 5638,
+    "fn": 19
+  },
+  "nih_by_view": {
+    "PA": {
+      "stratum": "NIH PA",
+      "n": 5945,
+      "n_pos": 24,
+      "prevalence": 0.004037005887300252,
+      "auc": 0.6191873557394584,
+      "auc_ci95": [
+        0.5119058928671958,
+        0.7215836640770139
+      ],
+      "ece_label_rate": 0.16607694375939563,
+      "error_pred_auc_low_confidence": 0.7459264905585228,
+      "sensitivity": 0.25,
+      "specificity": 0.8461408545853741,
+      "tp": 6,
+      "fp": 911,
+      "tn": 5010,
+      "fn": 18
+    },
+    "AP": {
+      "stratum": "NIH AP",
+      "n": 3158,
+      "n_pos": 25,
+      "prevalence": 0.007916402786573781,
+      "auc": 0.6234344079157357,
+      "auc_ci95": [
+        0.5332714650494734,
+        0.7106881583147143
+      ],
+      "ece_label_rate": 0.7236442007262869,
+      "error_pred_auc_low_confidence": 0.23645061667947845,
+      "sensitivity": 0.96,
+      "specificity": 0.2004468560485158,
+      "tp": 24,
+      "fp": 2505,
+      "tn": 628,
+      "fn": 1
+    }
+  },
+  "pa_vs_ap": {
+    "delta_auc_pa_minus_ap": -0.0042470521762772995,
+    "delta_ci95": [
+      -0.1479019240999113,
+      0.13299328191910095
+    ],
+    "p_two_sided": 0.984
+  },
+  "view_mix": {
+    "nih": {
+      "PA": 5945.0,
+      "AP": 3158.0
+    },
+    "internal": "PA (100%)"
+  },
+  "interpretation_draft": "Matched-view residual drop = internal PA anchor minus NIH-PA stratum; the NIH-PA vs NIH-AP contrast isolates the view effect within the external cohort. With 49 positives total (24 PA, 25 AP) per-stratum CIs are wide; treat as descriptive confounder quantification."
+}

@@ -7,7 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
-- (your contribution here)
+- AP/PA view-position confounder analysis for the NIH external cohort
+  (`scripts/medknow_view_confounder.py`, results in
+  `results/tables/view_confounder_nih.{json,md}`): the external discrimination
+  collapse is **not** explained by view mix (NIH-PA 0.619 vs NIH-AP 0.623;
+  matched-view internal-PA → NIH-PA still drops 0.992 → 0.619), while the
+  low-confidence referral signal fails in a **view-structured** way
+  (error-prediction AUC 0.746 in PA vs 0.236 in AP, pooled ≈ 0.49).
+- README (EN/ZH): clinical-framing section for the intended audience;
+  PyPI badge corrected to "planned" (package not yet published).
+
+### Fixed
+- README PyPI badge pointed to a nonexistent package (pypi.org/project/medknow → 404).
 
 ## [1.0.0] - 2026-08-14
 
