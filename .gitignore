@@ -39,3 +39,4 @@ dist/
 # 预测缓存（可再生成）
 results/metrics/predictions/
 paper/notes/
+.gradio/
