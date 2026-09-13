@@ -31,7 +31,7 @@ This is the single biggest lever for getting the repo noticed.
 4. **Link the Space from your GitHub README** — top badge:
 
    ```markdown
-   [![Live Demo](https://img.shields.io/badge/🖥️-Live%20Demo-FF4B4B)](https://huggingface.co/spaces/ojdanajakir848-a11y/medknow-pneumonia-xray)
+   [![Live Demo](https://img.shields.io/badge/🖥️-Live%20Demo-FF4B4B)](https://huggingface.co/spaces/Solren-zhen/Medknow-pneumonia-xray)
    ```
 
 ## Tips
