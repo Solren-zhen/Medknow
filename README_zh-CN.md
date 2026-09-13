@@ -7,7 +7,7 @@
 **医学 AI 什么时候应该"承认自己不知道"？** —— 一个开源的医学影像不确定性与
 选择性预测基准项目，核心发现是：不确定性转诊在域内有效，但在域漂移下失效。
 
-[![Live Demo](https://img.shields.io/badge/🖥️-Live%20Demo-FF4B4B)](https://huggingface.co/spaces/ojdanajakir848-a11y/medknow-pneumonia-xray)
+[![Live Demo](https://img.shields.io/badge/🖥️-Live%20Demo-FF4B4B)](https://medknow-demo.streamlit.app)
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Solren-zhen/Medknow/blob/main/notebooks/medknow_colab.ipynb)
 [![Python](https://img.shields.io/badge/Python-3.11+-3776AB?style=flat&logo=python&logoColor=white)](https://www.python.org)
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.x-EE4C2C?style=flat&logo=pytorch&logoColor=white)](https://pytorch.org)
@@ -16,7 +16,7 @@
 [![Paper](https://img.shields.io/badge/📄-Manuscript-blue)](paper/output/doc/manuscript.md)
 
 **[📄 手稿](paper/output/doc/manuscript.md)** · [English](README.md) ·
-[🖥️ 在线 Demo](https://huggingface.co/spaces/ojdanajakir848-a11y/medknow-pneumonia-xray) ·
+[🖥️ 在线 Demo](https://medknow-demo.streamlit.app) ·
 [🚀 Colab 一键演示](notebooks/medknow_colab.ipynb)
 
 </div>
@@ -42,7 +42,7 @@
 | 方式 | 入口 |
 |---|---|
 | **零安装演示** | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Solren-zhen/Medknow/blob/main/notebooks/medknow_colab.ipynb) — 加载权重、对示例胸片跑 MC Dropout 不确定性、画转诊曲线，免费 CPU/GPU 运行时 |
-| **在线 Demo** | [🖥️ Hugging Face Space](https://huggingface.co/spaces/ojdanajakir848-a11y/medknow-pneumonia-xray) — 上传胸片即可看到预测 + 不确定性 + Grad-CAM |
+| **在线 Demo** | [🖥️ Streamlit 演示](https://medknow-demo.streamlit.app) — 上传胸片即可看到预测 + 不确定性 + Grad-CAM |
 | **本地安装** | `pip install -e ".[dev]" ` 或 `conda env create -f environment.yml` |
 
 完整复现论文管线（数据 → 3 种子 → 不确定性 → 校准 → 转诊 → 外部验证 → 图表）见下文第 12 节。

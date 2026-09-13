@@ -8,7 +8,7 @@
 for uncertainty-aware referral and selective prediction in medical imaging, showing
 that the signal works **in-domain** but **fails under domain shift**.
 
-[![Live Demo](https://img.shields.io/badge/🖥️-Live%20Demo-FF4B4B)](https://huggingface.co/spaces/ojdanajakir848-a11y/medknow-pneumonia-xray)
+[![Live Demo](https://img.shields.io/badge/🖥️-Live%20Demo-FF4B4B)](https://medknow-demo.streamlit.app)
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Solren-zhen/Medknow/blob/main/notebooks/medknow_colab.ipynb)
 [![PyPI](https://img.shields.io/badge/PyPI-planned%20v1.1-grey)](https://github.com/Solren-zhen/Medknow/blob/main/ROADMAP.md)
 [![Python](https://img.shields.io/badge/Python-3.11+-3776AB?style=flat&logo=python&logoColor=white)](https://www.python.org)
@@ -18,7 +18,7 @@ that the signal works **in-domain** but **fails under domain shift**.
 [![Paper](https://img.shields.io/badge/📄-Manuscript-blue)](paper/output/doc/manuscript.md)
 
 **[📄 Manuscript](paper/output/doc/manuscript.md)** · [🇨🇳 中文](README_zh-CN.md) ·
-[🖥️ Live Demo](https://huggingface.co/spaces/ojdanajakir848-a11y/medknow-pneumonia-xray) ·
+[🖥️ Live Demo](https://medknow-demo.streamlit.app) ·
 [🚀 Colab](notebooks/medknow_colab.ipynb)
 
 </div>
@@ -69,7 +69,7 @@ referral signal must be re-validated in every new deployment environment.
 | What | Where |
 |---|---|
 | **Zero-install demo** | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Solren-zhen/Medknow/blob/main/notebooks/medknow_colab.ipynb) — load weights, run MC Dropout on sample X-rays, plot the referral curves. Free CPU/GPU runtime. |
-| **Live web demo** | [🖥️ Hugging Face Space](https://huggingface.co/spaces/ojdanajakir848-a11y/medknow-pneumonia-xray) — upload a chest X-ray, see prediction + uncertainty + Grad-CAM. |
+| **Live web demo** | [🖥️ Streamlit demo](https://medknow-demo.streamlit.app) — upload a chest X-ray, see prediction + uncertainty + Grad-CAM. |
 | **pip install** | `pip install -e ".[dev]"` (or `conda env create -f environment.yml`) |
 | **Package** | `pip install medknow` — uncertainty / calibration / referral as a library |
 
@@ -174,7 +174,7 @@ ResNet-18, ImageNet-pretrained, frozen backbone with the final residual block
 single RTX 3060 (PyTorch 2.5). Checkpoints: `checkpoints/seed_42.pth`,
 `seed_2024.pth`, `seed_2026.pth` — also published as a
 [GitHub Release](https://github.com/Solren-zhen/Medknow/releases) and in the
-[Hugging Face Space](https://huggingface.co/spaces/ojdanajakir848-a11y/medknow-pneumonia-xray).
+[Streamlit Community Cloud demo](https://medknow-demo.streamlit.app).
 
 ## 7. Uncertainty methods
 
@@ -328,7 +328,7 @@ medknow/
 ├── tests/              # unit tests (74 passing)
 ├── results/            # figures / tables / metrics (regenerated)
 ├── notebooks/          # 🆕 one-click Colab demo
-├── hf_space/           # 🆕 self-contained Hugging Face Space package
+├── hf_space/           # 🆕 self-contained Hugging Face Space package (HF now requires a paid plan for Gradio SDK; hosted demo runs on Streamlit Community Cloud)
 ├── demo_app.py         # interactive Gradio demo (see hf_space/ for deploy)
 ├── paper/              # manuscript, figures, research notes
 └── data/README.md      # dataset provenance (no images distributed)
