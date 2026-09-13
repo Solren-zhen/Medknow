@@ -6,7 +6,7 @@
 # Keep aligned with environment.yml and CI's CPU smoke-test environment.
 # torch/torchvision: minimum 2.5.1 (manuscript version); >=2.6 also allowed so
 # Streamlit Community Cloud (Python 3.13) can resolve wheels.
-streamlit>=1.40
+streamlit>=1.63.0
 torch>=2.5.1
 torchvision>=0.20.1
 numpy>=1.24
