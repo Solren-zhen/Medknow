@@ -4,6 +4,7 @@
 # This file exists for quick environment setup and demo deployment.
 
 # Keep aligned with environment.yml and CI's CPU smoke-test environment.
+streamlit>=1.40
 torch==2.5.1
 torchvision==0.20.1
 numpy>=1.24
